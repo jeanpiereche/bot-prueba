@@ -2,13 +2,13 @@ require('dotenv').config()
 const request = require("request")
 const express = require("express")
 const body_parser = require("body-parser")
-const axios = require('axios').default
+const axios = require("axios").default
 const app = express().use(body_parser.json()); // creates express http server
 
 const token = process.env.WHATSAPP_TOKEN;
 
 // Accepts POST requests at /webhook endpoint
-app.post("/webhook", async (req, res) => {
+app.post("/webhook", (req, res) => {
 	// Parse the request body from the POST
 	let body = req.body;
 
@@ -35,13 +35,12 @@ app.post("/webhook", async (req, res) => {
 				text: { body: "Ack: " + msg_body },
 			}
 
-			try {
-				const response = await axios.post('https://jsonplaceholder.typicode.com/posts', { title: 'go', body: 'ddd' })
-				console.log(response)
-			} catch (error) {
-				console.log(error)
-			}
-
+			axios.request({ method: 'post', url: 'https://jsonplaceholder.typicode.com/posts', data: { title: 'go', body: 'ddd' } })
+				.then(res => {
+					console.log(res)
+				}).catch(e => {
+					console.log({ error: e })
+				})
 
 			console.log({ url: URL, data: DATA })
 			axios({
