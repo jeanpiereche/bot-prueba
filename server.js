@@ -8,7 +8,7 @@ const request = require("request"),
 const token = process.env.WHATSAPP_TOKEN;
 
 // Accepts POST requests at /webhook endpoint
-app.post("/webhook", async (req, res) => {
+app.post("/webhook", (req, res) => {
 	// Parse the request body from the POST
 	let body = req.body;
 
@@ -30,7 +30,7 @@ app.post("/webhook", async (req, res) => {
 			let msg_body = req.body.entry[0].changes[0].value.messages[0].text.body; // extract the message text from the webhook payload
 			
 			try {
-				await axios({
+				axios({
 					method: "POST", // Required, HTTP method, a string, e.g. POST, GET
 					url:
 						"https://graph.facebook.com/v12.0/" +
