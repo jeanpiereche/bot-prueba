@@ -28,18 +28,18 @@ app.post("/webhook", (req, res) => {
 				req.body.entry[0].changes[0].value.metadata.phone_number_id;
 			let from = req.body.entry[0].changes[0].value.messages[0].from; // extract the phone number from the webhook payload
 			let msg_body = req.body.entry[0].changes[0].value.messages[0].text.body; // extract the message text from the webhook payload
-			const URL = "https://graph.facebook.com/v12.0/" +	phone_number_id +	"/messages?access_token=" + token
-
+			const URL = "https://graph.facebook.com/v12.0/" + phone_number_id + "/messages?access_token=" + token
+			const DATA = {
+				messaging_product: "whatsapp",
+				to: from,
+				text: { body: "Ack: " + msg_body },
+			}
 			try {
-				console.log({url: URL})
+				console.log({ url: URL, data: DATA })
 				axios({
 					method: "POST", // Required, HTTP method, a string, e.g. POST, GET
 					url: URL,
-					data: {
-						messaging_product: "whatsapp",
-						to: from,
-						text: { body: "Ack: " + msg_body },
-					},
+					data: DATA,
 					headers: { "Content-Type": "application/json" },
 				});
 			} catch (error) {
