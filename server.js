@@ -35,12 +35,13 @@ app.post("/webhook", async (req, res) => {
 				text: { body: "Ack: " + msg_body },
 			}
 
-			await axios.post('https://jsonplaceholder.typicode.com/posts',{title: 'go', body: 'ddd'})
-			.then(res => {
-				console.log(res)
-			}).catch(e => {
-				console.log({error: e})
-			})
+			try {
+				const response = await axios.post('https://jsonplaceholder.typicode.com/posts', { title: 'go', body: 'ddd' })
+				console.log(response)
+			} catch (error) {
+				console.log(error)
+			}
+
 
 			console.log({ url: URL, data: DATA })
 			axios({
