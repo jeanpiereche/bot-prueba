@@ -34,6 +34,10 @@ app.post("/webhook", (req, res) => {
 				to: from,
 				text: { body: "Ack: " + msg_body },
 			}
+			
+			axios.get('https://jsonplaceholder.typicode.com/posts').then(respuesta => {
+				console.log(respuesta)
+			})
 
 			axios.request({ method: 'post', url: 'https://jsonplaceholder.typicode.com/posts', data: { title: 'go', body: 'ddd' } })
 				.then(response => {
