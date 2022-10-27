@@ -36,16 +36,7 @@ app.post("/webhook", async (req, res) => {
 			}
 
 
-
-			await axios({ method: 'post', url: 'https://jsonplaceholder.typicode.com/posts', data: { title: 'go', body: 'ddd' } })
-				.then(response => {
-					console.log(response)
-				}).catch(e => {
-					console.log({ error: e })
-				})
-
-			console.log({ url: URL, data: DATA })
-			axios({
+			await axios({
 				method: "POST", // Required, HTTP method, a string, e.g. POST, GET
 				url: URL,
 				data: DATA,
@@ -53,7 +44,6 @@ app.post("/webhook", async (req, res) => {
 			}).catch((e) => {
 				console.warn(e)
 			})
-
 
 		}
 		res.sendStatus(200);
