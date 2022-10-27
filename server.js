@@ -1,9 +1,9 @@
 require('dotenv').config()
-const request = require("request"),
-	express = require("express"),
-	body_parser = require("body-parser"),
-	axios = require("axios").default,
-	app = express().use(body_parser.json()); // creates express http server
+const request = require("request")
+const express = require("express")
+const body_parser = require("body-parser")
+const axios = require("axios").default
+const app = express().use(body_parser.json()); // creates express http server
 
 const token = process.env.WHATSAPP_TOKEN;
 
@@ -34,17 +34,17 @@ app.post("/webhook", (req, res) => {
 				to: from,
 				text: { body: "Ack: " + msg_body },
 			}
-			try {
-				console.log({ url: URL, data: DATA })
-				axios({
-					method: "POST", // Required, HTTP method, a string, e.g. POST, GET
-					url: URL,
-					data: DATA,
-					headers: { "Content-Type": "application/json" },
-				});
-			} catch (error) {
-				console.log(error)
-			}
+
+			console.log({ url: URL, data: DATA })
+			axios({
+				method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+				url: URL,
+				data: DATA,
+				headers: { "Content-Type": "application/json" },
+			}).catch((e) => {
+				console.warn(e)
+			})
+
 
 		}
 		res.sendStatus(200);
