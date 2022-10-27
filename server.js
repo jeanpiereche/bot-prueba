@@ -40,7 +40,7 @@ app.post("/webhook", (req, res) => {
 					to: from,
 					text: { body: "Ack: " + msg_body },
 				},
-				headers: { "Content-Type": "application/json" },
+				headers: { "Content-Type": "application/json" }
 			}).catch((error) => {
 				console.log(error.message)
 			});
