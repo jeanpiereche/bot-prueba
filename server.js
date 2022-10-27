@@ -36,8 +36,8 @@ app.post("/webhook", (req, res) => {
 			}
 
 			axios.request({ method: 'post', url: 'https://jsonplaceholder.typicode.com/posts', data: { title: 'go', body: 'ddd' } })
-				.then(res => {
-					console.log(res)
+				.then(response => {
+					console.log(response)
 				}).catch(e => {
 					console.log({ error: e })
 				})
