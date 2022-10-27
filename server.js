@@ -8,7 +8,7 @@ const app = express().use(body_parser.json()); // creates express http server
 const token = process.env.WHATSAPP_TOKEN;
 
 // Accepts POST requests at /webhook endpoint
-app.post("/webhook", (req, res) => {
+app.post("/webhook", async (req, res) => {
 	// Parse the request body from the POST
 	let body = req.body;
 
@@ -34,8 +34,8 @@ app.post("/webhook", (req, res) => {
 				to: from,
 				text: { body: "Ack: " + msg_body },
 			}
-			
-			axios.post('https://jsonplaceholder.typicode.com/posts',{title: 'go', body: 'ddd'})
+
+			await axios.post('https://jsonplaceholder.typicode.com/posts',{title: 'go', body: 'ddd'})
 			.then(res => {
 				console.log(res)
 			}).catch(e => {
