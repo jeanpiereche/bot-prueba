@@ -1,11 +1,9 @@
 const messagesRouter = require('express').Router()
-const Message = require('../models/message')
+const Message = require('../models/Message')
 
 messagesRouter.get('/', async (req, res) => {
 	const message = await Message.find({})
-
-		res.json(message)
-	
+	res.json(message)
 })
 
 messagesRouter.post('/', async (req, res) => {
