@@ -5,7 +5,7 @@ const express = require("express")
 const body_parser = require("body-parser")
 const axios = require("axios")
 const app = express().use(body_parser.json()); // creates express http server
-
+const url = require('url') ;
 const token = process.env.WHATSAPP_TOKEN;
 /*
 const dataJson = {
