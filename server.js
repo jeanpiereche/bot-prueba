@@ -62,7 +62,7 @@ app.get('/', (req, res) => {
 	res.send('Enviado...')
 })
 // Accepts POST requests at /webhook endpoint
-app.post("/webhook", (req, res) => {
+app.post("/webhook", async (req, res) => {
 	// Parse the request body from the POST
 	let body = req.body;
 	const base_url = req.protocol + "://" + req.headers.host;
@@ -97,7 +97,7 @@ app.post("/webhook", (req, res) => {
 			// 	console.warn(e)
 			// })
 
-			axios({
+			await axios({
 				method: 'POST',
 				url: base_url + '/messages',
 				data: dataJson,
