@@ -52,14 +52,17 @@ const messagesRouter = require('./controllers/message')
 app.use('/messages', messagesRouter)
 
 //path test
-// app.get('/', (req, res) => {
-// 	axios({
-// 		method: 'post',
-// 		url: 'http://localhost:3001/messages',
-// 		data: dataJson
-// 	})
-// 	res.send('Enviado...')
-// })
+app.get('/', (req, res) => {
+	// axios({
+	// 	method: 'post',
+	// 	url: 'http://localhost:3001/messages',
+	// 	data: dataJson
+	// })
+	// res.send('Enviado...')
+	const hostname = req.headers.host; // hostname = 'localhost:8080'
+	const pathname = url.parse(req.url).pathname; // pathname = '/MyApp'
+	console.log('http://' + hostname + pathname);
+})
 // Accepts POST requests at /webhook endpoint
 app.post("/webhook", (req, res) => {
 	// Parse the request body from the POST
