@@ -34,14 +34,14 @@ app.post("/webhook", (req, res) => {
 				text: { body: "Ack: " + msg_body },
 			}
 
-			axios({
-				method: "POST", // Required, HTTP method, a string, e.g. POST, GET
-				url: URL,
-				data: DATA,
-				headers: { "Content-Type": "application/json" },
-			}).catch((e) => {
-				console.warn(e)
-			})
+			// axios({
+			// 	method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+			// 	url: URL,
+			// 	data: DATA,
+			// 	headers: { "Content-Type": "application/json" },
+			// }).catch((e) => {
+			// 	console.warn(e)
+			// })
 
 		}
 		res.sendStatus(200);
