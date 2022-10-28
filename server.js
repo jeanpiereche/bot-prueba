@@ -1,4 +1,5 @@
 require('dotenv').config()
+require('./mongo')
 const request = require("request")
 const express = require("express")
 const body_parser = require("body-parser")
@@ -6,7 +7,59 @@ const axios = require("axios")
 const app = express().use(body_parser.json()); // creates express http server
 
 const token = process.env.WHATSAPP_TOKEN;
+/*
+const dataJson = {
+	"object": "whatsapp_business_account",
+	"entry": [
+		{
+			"id": "103563949229287",
+			"changes": [
+				{
+					"value": {
+						"messaging_product": "whatsapp",
+						"metadata": {
+							"display_phone_number": "15550052666",
+							"phone_number_id": "100351229557779"
+						},
+						"contacts": [
+							{
+								"profile": {
+									"name": "Jeanpierre"
+								},
+								"wa_id": "51986705000"
+							}
+						],
+						"messages": [
+							{
+								"from": "51986705000",
+								"id": "wamid.HBgLNTE5ODY3MDUwMDAVAgASGCAzREIzOTg0Q0ZCNERGMTVCNTg4NUMzODUyMTM3N0YzOQA=",
+								"timestamp": "1666915772",
+								"text": {
+									"body": "Ehnrhnyrn"
+								},
+								"type": "text"
+							}
+						]
+					},
+					"field": "messages"
+				}
+			]
+		}
+	]
+}
+*/
+const messagesRouter = require('./controllers/message')
+app.use('/messages', messagesRouter)
 
+//path test
+// app.get('/', (req, res) => {
+// 	axios({
+// 		method: 'post',
+// 		url: 'http://localhost:3001/messages',
+// 		data: dataJson
+// 	})
+// 	res.send('Enviado...')
+// })
 // Accepts POST requests at /webhook endpoint
 app.post("/webhook", (req, res) => {
 	// Parse the request body from the POST
@@ -14,7 +67,7 @@ app.post("/webhook", (req, res) => {
 
 	// Check the Incoming webhook message
 	console.log(JSON.stringify(req.body, null, 2));
-
+	const dataJson = JSON.stringify(req.body, null, 2);
 	// info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
 	if (req.body.object) {
 		if (
@@ -42,6 +95,12 @@ app.post("/webhook", (req, res) => {
 			// }).catch((e) => {
 			// 	console.warn(e)
 			// })
+
+			axios({
+				method: 'post',
+				url: '/messages',
+				data: dataJson
+			})
 
 		}
 		res.sendStatus(200);
