@@ -67,8 +67,8 @@ app.post("/webhook", (req, res) => {
 	let body = req.body;
 	const base_url = req.protocol + "://" + req.headers.host;
 	// Check the Incoming webhook message
-	console.log(JSON.stringify(req.body, null, 2));
 	const dataJson = JSON.stringify(req.body, null, 2);
+	console.log(dataJson);
 	// info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
 	if (req.body.object) {
 		if (
@@ -98,9 +98,12 @@ app.post("/webhook", (req, res) => {
 			// })
 
 			axios({
-				method: 'post',
+				method: 'POST',
 				url: base_url + '/messages',
-				data: dataJson
+				data: dataJson,
+				headers: { "Content-Type": "application/json" },
+			}).catch((e) => {
+				console.warn(e)
 			})
 
 		}
